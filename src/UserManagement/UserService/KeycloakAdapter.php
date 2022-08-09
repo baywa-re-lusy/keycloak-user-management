@@ -31,7 +31,7 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
                     'Content-Type' => 'application/x-www-form-urlencoded',
                     'Accept'       => 'application/json'
                 ],
-            'body'        =>
+            'form_params' =>
                 [
                     'grant_type'    => 'client_credentials',
                     'client_id'     => '',
