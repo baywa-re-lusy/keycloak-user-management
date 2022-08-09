@@ -21,7 +21,7 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
      */
     public function getAllUsers(): array
     {
-        $response = $this->httpClient->get($this->tokenEndpoint);
+        $response = $this->httpClient->post($this->tokenEndpoint);
 
         var_dump($response);
 
