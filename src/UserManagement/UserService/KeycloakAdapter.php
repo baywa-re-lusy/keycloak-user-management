@@ -73,7 +73,7 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
                 ->setEmailVerified($userData['emailVerified'])
                 ->setEmail($userData['email'])
                 ->setName($userData['email'])
-                ->setCreated(\DateTime::createFromFormat('U', $userData['createdTimestamp']));
+                ->setCreated(\DateTime::createFromFormat('U', $userData['createdTimestamp']/1000));
 //                ->setPicture($auth0User['picture'])
 //                ->setLastUpdate($lastUpdate ?: null)
 //                ->setLastLogin($lastLogin ?: null);
