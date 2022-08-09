@@ -61,22 +61,22 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
         $users    = [];
 
         foreach ($response as $userData) {
+            if (!array_key_exists('email', $userData)) {
+                continue;
+            }
+
             $user = new UserEntity();
             $user
                 ->setId($userData['id'])
                 ->setNickname($userData['username'])
                 ->setUsername($userData['username'])
                 ->setEmailVerified($userData['emailVerified'])
+                ->setEmail($userData['email'])
+                ->setName($userData['email'])
                 ->setCreated(\DateTime::createFromFormat('U', $userData['createdTimestamp']));
 //                ->setPicture($auth0User['picture'])
 //                ->setLastUpdate($lastUpdate ?: null)
 //                ->setLastLogin($lastLogin ?: null);
-
-            if (array_key_exists('email', $userData)) {
-                $user
-                    ->setEmail($userData['email'])
-                    ->setName($userData['email']);
-            }
 
             $users[] = $user;
         }
