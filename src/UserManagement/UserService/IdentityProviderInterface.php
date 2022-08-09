@@ -1,11 +1,13 @@
 <?php
 
-namespace BayWaReLusy\UserManagement;
+namespace BayWaReLusy\UserManagement\UserService;
+
+use BayWaReLusy\UserManagement\UserEntity;
 
 /**
  * Describes what an Identity Provider must provide.
  */
-interface IdentityProviderInterface
+interface IdentityProviderAdapterInterface
 {
     /**
      * Get all users from the Identity Provider hydrated into a UserEntity array.

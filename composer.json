@@ -6,7 +6,10 @@
     "homepage": "https://github.com/baywa-re-lusy/user-management",
     "require": {
         "php": ">= 8.0",
-        "laminas/laminas-permissions-acl": "^2.9"
+        "ext-curl": "*",
+        "laminas/laminas-permissions-acl": "^2.9",
+        "laminas/laminas-servicemanager": "^3.16",
+        "guzzlehttp/guzzle": "^7.4"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.6",
