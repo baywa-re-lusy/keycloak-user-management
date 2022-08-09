@@ -6,12 +6,17 @@ use BayWaReLusy\UserManagement\UserService\IdentityProviderAdapterInterface;
 
 class UserService
 {
+    protected IdentityProviderAdapterInterface $adapter;
+
     /**
      * @param IdentityProviderAdapterInterface $adapter
+     * @return UserService
      */
-    public function __construct(
-        protected IdentityProviderAdapterInterface $adapter
-    ) {}
+    public function setAdapter(IdentityProviderAdapterInterface $adapter): UserService
+    {
+        $this->adapter = $adapter;
+        return $this;
+    }
 
     /**
      * Get the list of users.
