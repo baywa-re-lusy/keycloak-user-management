@@ -2,6 +2,7 @@
 
 namespace BayWaReLusy\UserManagement\UserService;
 
+use BayWaReLusy\UserManagement\UserEntity;
 use BayWaReLusy\UserManagement\UserManagementException;
 use GuzzleHttp\Client as HttpClient;
 
@@ -56,8 +57,30 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
         ];
 
         $response = $this->httpClient->get($this->usersEndpoint, $params);
-        var_dump($response->getBody());
+        $response = json_decode($response->getBody()->getContents(), true);
+        $users    = [];
 
-        return [];
+        foreach ($response as $userData) {
+            $user = new UserEntity();
+            $user
+                ->setId($userData['id'])
+                ->setNickname($userData['username'])
+                ->setUsername($userData['username'])
+                ->setEmailVerified($userData['emailVerified'])
+                ->setCreated(\DateTime::createFromFormat('U', $userData['createdTimestamp']));
+//                ->setPicture($auth0User['picture'])
+//                ->setLastUpdate($lastUpdate ?: null)
+//                ->setLastLogin($lastLogin ?: null);
+
+            if (array_key_exists('email', $userData)) {
+                $user
+                    ->setEmail($userData['email'])
+                    ->setName($userData['email']);
+            }
+
+            $users[] = $user;
+        }
+
+        return $users;
     }
 }

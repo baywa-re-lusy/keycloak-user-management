@@ -25,6 +25,7 @@ class UserEntity implements IdentityInterface
 
     /**
      * @var string
+     * @deprecated
      *
      * @OA\Property(
      *     description="The Username (email)",
@@ -36,6 +37,7 @@ class UserEntity implements IdentityInterface
 
     /**
      * @var string
+     * @deprecated Will be replaced by $username
      *
      * @OA\Property(
      *     description="The nickname",
@@ -49,6 +51,17 @@ class UserEntity implements IdentityInterface
      * @var string
      *
      * @OA\Property(
+     *     description="The username",
+     *     type="string",
+     *     example="pascal.paulis"
+     * )
+     */
+    protected string $username;
+
+    /**
+     * @var string
+     *
+     * @OA\Property(
      *     description="The Email address",
      *     type="string",
      *     example="pascal.paulis@baywa-re.com"
@@ -57,9 +70,24 @@ class UserEntity implements IdentityInterface
     protected string $email;
 
     protected bool $emailVerified;
+
+    /**
+     * @var string
+     * @deprecated
+     */
     protected string $picture;
     protected ?\DateTime $created;
+
+    /**
+     * @var \DateTime|null
+     * @deprecated
+     */
     protected ?\DateTime $lastUpdate;
+
+    /**
+     * @var \DateTime|null
+     * @deprecated
+     */
     protected ?\DateTime $lastLogin;
 
     public function getRoleId()
@@ -87,6 +115,7 @@ class UserEntity implements IdentityInterface
 
     /**
      * @return string
+     * @deprecated
      */
     public function getName(): string
     {
@@ -96,6 +125,7 @@ class UserEntity implements IdentityInterface
     /**
      * @param string $name
      * @return UserEntity
+     * @deprecated
      */
     public function setName(string $name): UserEntity
     {
@@ -105,6 +135,7 @@ class UserEntity implements IdentityInterface
 
     /**
      * @return string
+     * @deprecated Will be replaced by getUsername()
      */
     public function getNickname(): string
     {
@@ -114,10 +145,29 @@ class UserEntity implements IdentityInterface
     /**
      * @param string $nickname
      * @return UserEntity
+     * @deprecated Will be replaced by setUsername()
      */
     public function setNickname(string $nickname): UserEntity
     {
         $this->nickname = $nickname;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     * @return UserEntity
+     */
+    public function setUsername(string $username): UserEntity
+    {
+        $this->username = $username;
         return $this;
     }
 
@@ -159,6 +209,7 @@ class UserEntity implements IdentityInterface
 
     /**
      * @return string
+     * @deprecated
      */
     public function getPicture(): string
     {
@@ -168,6 +219,7 @@ class UserEntity implements IdentityInterface
     /**
      * @param string $picture
      * @return UserEntity
+     * @deprecated
      */
     public function setPicture(string $picture): UserEntity
     {
@@ -195,6 +247,7 @@ class UserEntity implements IdentityInterface
 
     /**
      * @return \DateTime|null
+     * @deprecated
      */
     public function getLastUpdate(): ?\DateTime
     {
@@ -204,6 +257,7 @@ class UserEntity implements IdentityInterface
     /**
      * @param \DateTime|null $lastUpdate
      * @return UserEntity
+     * @deprecated
      */
     public function setLastUpdate(?\DateTime $lastUpdate): UserEntity
     {
@@ -213,6 +267,7 @@ class UserEntity implements IdentityInterface
 
     /**
      * @return \DateTime|null
+     * @deprecated
      */
     public function getLastLogin(): ?\DateTime
     {
@@ -222,6 +277,7 @@ class UserEntity implements IdentityInterface
     /**
      * @param \DateTime|null $lastLogin
      * @return UserEntity
+     * @deprecated
      */
     public function setLastLogin(?\DateTime $lastLogin): UserEntity
     {
