@@ -1,9 +1,6 @@
 <?php
 
-namespace Application\User;
-
-use tms\ArraySerializableTrait;
-use tms\DbEntityInterface;
+namespace BayWaReLusy\UserManagement;
 
 /**
  * Class UserEntity
@@ -11,10 +8,9 @@ use tms\DbEntityInterface;
  *
  * @OA\Schema()
  */
-class UserEntity implements DbEntityInterface, IdentityInterface
+class UserEntity implements IdentityInterface
 {
     use IdentityTrait;
-    use ArraySerializableTrait;
 
     /**
      * @var string
