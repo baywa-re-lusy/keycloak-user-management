@@ -82,13 +82,13 @@ class UserEntity implements IdentityInterface
      * @var \DateTime|null
      * @deprecated
      */
-    protected ?\DateTime $lastUpdate;
+    protected ?\DateTime $lastUpdate = null;
 
     /**
      * @var \DateTime|null
      * @deprecated
      */
-    protected ?\DateTime $lastLogin;
+    protected ?\DateTime $lastLogin = null;
 
     public function getRoleId()
     {
