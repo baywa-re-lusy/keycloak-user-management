@@ -5,18 +5,23 @@ namespace BayWaReLusy\UserManagement\UserService;
 use BayWaReLusy\UserManagement\UserEntity;
 use BayWaReLusy\UserManagement\UserManagementException;
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Describes what an Identity Provider must provide.
  */
 class KeycloakAdapter implements IdentityProviderAdapterInterface
 {
+    protected string $accessToken;
+
     public function __construct(
         protected HttpClient $httpClient,
         protected string $tokenEndpoint,
         protected string $usersEndpoint,
         protected string $managementApiClientId,
-        protected string $managementApiClientSecret
+        protected string $managementApiClientSecret,
+        protected string $frontendClientUuid
     ) {
     }
 
@@ -47,11 +52,13 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
             throw new UserManagementException("Couldn't get a Token from Authentication Server.");
         }
 
+        $this->accessToken = $response['access_token'];
+
         $params = [
             'http_errors' => false,
             'headers'     =>
                 [
-                    'Authorization' => sprintf("Bearer %s", $response['access_token']),
+                    'Authorization' => sprintf("Bearer %s", $this->accessToken),
                     'Accept'        => 'application/json',
                 ],
         ];
@@ -78,9 +85,45 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
 //                ->setLastUpdate($lastUpdate ?: null)
 //                ->setLastLogin($lastLogin ?: null);
 
+            $this->getUserRoles($user);
+
             $users[] = $user;
         }
 
         return $users;
+    }
+
+    /**
+     * Retrieve and inject the users roles.
+     *
+     * @param UserEntity $user
+     * @return void
+     * @throws UserManagementException
+     */
+    protected function getUserRoles(UserEntity $user): void
+    {
+        $params = [
+            'http_errors' => false,
+            'headers'     =>
+                [
+                    'Authorization' => sprintf("Bearer %s", $this->accessToken),
+                    'Accept'        => 'application/json',
+                ],
+        ];
+
+        try {
+            $response = $this->httpClient->get(
+                sprintf("/admin/realms/master/users/%s/role-mappings/clients/%s", $user->getId(), $this->frontendClientUuid),
+                $params
+            );
+        } catch (ClientException $e) {
+            throw new UserManagementException("Couldn't fetch roles for user.");
+        }
+
+        $response = json_decode($response->getBody()->getContents(), true);
+
+        foreach ($response as $roleData) {
+            $user->addRole($roleData['name']);
+        }
     }
 }
