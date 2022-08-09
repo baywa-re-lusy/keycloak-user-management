@@ -7,8 +7,7 @@ class UserManagementConfig
     public function __construct(
         protected string $serverUrl,
         protected string $tokenEndpoint,
-        protected string $usersEndpoint,
-        protected string $realm
+        protected string $usersEndpoint
     ) {
     }
 
@@ -34,13 +33,5 @@ class UserManagementConfig
     public function getUsersEndpoint(): string
     {
         return $this->usersEndpoint;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRealm(): string
-    {
-        return $this->realm;
     }
 }
