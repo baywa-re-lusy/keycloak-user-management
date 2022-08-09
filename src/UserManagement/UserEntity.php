@@ -75,7 +75,7 @@ class UserEntity implements IdentityInterface
      * @var string|null
      * @deprecated
      */
-    protected ?string $picture;
+    protected ?string $picture = null;
     protected ?\DateTime $created;
 
     /**
