@@ -72,10 +72,10 @@ class UserEntity implements IdentityInterface
     protected bool $emailVerified;
 
     /**
-     * @var string
+     * @var string|null
      * @deprecated
      */
-    protected string $picture;
+    protected ?string $picture;
     protected ?\DateTime $created;
 
     /**
@@ -208,10 +208,10 @@ class UserEntity implements IdentityInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      * @deprecated
      */
-    public function getPicture(): string
+    public function getPicture(): ?string
     {
         return $this->picture;
     }
