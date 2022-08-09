@@ -7,7 +7,9 @@ class UserManagementConfig
     public function __construct(
         protected string $serverUrl,
         protected string $tokenEndpoint,
-        protected string $usersEndpoint
+        protected string $usersEndpoint,
+        protected string $managementApiClientId,
+        protected string $managementApiClientSecret
     ) {
     }
 
@@ -33,5 +35,21 @@ class UserManagementConfig
     public function getUsersEndpoint(): string
     {
         return $this->usersEndpoint;
+    }
+
+    /**
+     * @return string
+     */
+    public function getManagementApiClientId(): string
+    {
+        return $this->managementApiClientId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getManagementApiClientSecret(): string
+    {
+        return $this->managementApiClientSecret;
     }
 }

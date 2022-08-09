@@ -12,7 +12,9 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
     public function __construct(
         protected HttpClient $httpClient,
         protected string $tokenEndpoint,
-        protected string $usersEndpoint
+        protected string $usersEndpoint,
+        protected string $managementApiClientId,
+        protected string $managementApiClientSecret
     ) {
     }
 
@@ -21,7 +23,23 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
      */
     public function getAllUsers(): array
     {
-        $response = $this->httpClient->post($this->tokenEndpoint);
+        $params = [
+            'verify'      => false,
+            'http_errors' => false,
+            'headers'     =>
+                [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'Accept'       => 'application/json'
+                ],
+            'body'        =>
+                [
+                    'grant_type'    => 'client_credentials',
+                    'client_id'     => '',
+                    'client_secret' => '',
+                ]
+        ];
+
+        $response = $this->httpClient->post($this->tokenEndpoint, $params);
 
         var_dump($response);
 
