@@ -48,7 +48,11 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
 
         $params = [
             'http_errors' => false,
-            'headers'     => ['Accept' => 'application/json'],
+            'headers'     =>
+                [
+                    'Authorization' => sprintf("Bearer %s", $response['access_token']),
+                    'Accept'        => 'application/json',
+                ],
         ];
 
         $response = $this->httpClient->get($this->usersEndpoint, $params);
