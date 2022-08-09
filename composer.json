@@ -8,7 +8,7 @@
         "php": ">= 8.0",
         "ext-curl": "*",
         "laminas/laminas-permissions-acl": "^2.9",
-        "laminas/laminas-servicemanager": "^3.16",
+        "laminas/laminas-servicemanager": "^3.12",
         "guzzlehttp/guzzle": "^7.4"
     },
     "require-dev": {
