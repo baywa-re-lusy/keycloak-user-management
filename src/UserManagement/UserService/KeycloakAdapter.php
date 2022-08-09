@@ -34,14 +34,14 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
             'form_params' =>
                 [
                     'grant_type'    => 'client_credentials',
-                    'client_id'     => '',
-                    'client_secret' => '',
+                    'client_id'     => $this->managementApiClientId,
+                    'client_secret' => $this->managementApiClientSecret,
                 ]
         ];
 
         $response = $this->httpClient->post($this->tokenEndpoint, $params);
 
-        var_dump($response);
+        var_dump($response->getBody());
 
         return [];
     }
