@@ -22,7 +22,8 @@ class KeycloakAdapterFactory implements FactoryInterface
             $config->getTokenEndpoint(),
             $config->getUsersEndpoint(),
             $config->getManagementApiClientId(),
-            $config->getManagementApiClientSecret()
+            $config->getManagementApiClientSecret(),
+            $config->getFrontendClientUuid()
         );
     }
 }

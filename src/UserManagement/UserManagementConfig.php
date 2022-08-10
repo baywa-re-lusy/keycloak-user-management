@@ -9,7 +9,8 @@ class UserManagementConfig
         protected string $tokenEndpoint,
         protected string $usersEndpoint,
         protected string $managementApiClientId,
-        protected string $managementApiClientSecret
+        protected string $managementApiClientSecret,
+        protected string $frontendClientUuid
     ) {
     }
 
@@ -51,5 +52,13 @@ class UserManagementConfig
     public function getManagementApiClientSecret(): string
     {
         return $this->managementApiClientSecret;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFrontendClientUuid(): string
+    {
+        return $this->frontendClientUuid;
     }
 }
