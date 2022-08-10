@@ -217,11 +217,11 @@ class UserEntity implements IdentityInterface
     }
 
     /**
-     * @param string $picture
+     * @param string|null $picture
      * @return UserEntity
      * @deprecated
      */
-    public function setPicture(string $picture): UserEntity
+    public function setPicture(?string $picture): UserEntity
     {
         $this->picture = $picture;
         return $this;
