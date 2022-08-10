@@ -5,7 +5,7 @@ namespace BayWaReLusy\UserManagement;
 class UserManagementConfig
 {
     public function __construct(
-        protected string $serverUrl,
+        protected string $serverAddress,
         protected string $tokenEndpoint,
         protected string $usersEndpoint,
         protected string $managementApiClientId,
@@ -17,9 +17,9 @@ class UserManagementConfig
     /**
      * @return string
      */
-    public function getServerUrl(): string
+    public function getServerAddress(): string
     {
-        return $this->serverUrl;
+        return $this->serverAddress;
     }
 
     /**
