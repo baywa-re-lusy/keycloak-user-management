@@ -1,0 +1,82 @@
+[
+  {
+    "id": "f2b12064-2251-4c2c-b1bc-5b2458c4c9b5",
+    "createdTimestamp": 1659343823028,
+    "username": "bayware-admin-dev",
+    "enabled": true,
+    "totp": false,
+    "emailVerified": false,
+    "disableableCredentialTypes": [],
+    "requiredActions": [],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": false,
+      "view": true,
+      "mapRoles": false,
+      "impersonate": false,
+      "manage": false
+    }
+  },
+  {
+    "id": "b73949a9-e7d9-465f-9189-1ff8120e90a9",
+    "createdTimestamp": 1659683644103,
+    "username": "maxim.sanse.jamar@gmail.com",
+    "enabled": true,
+    "totp": false,
+    "emailVerified": true,
+    "firstName": "Maxim",
+    "lastName": "Jamar",
+    "email": "maxim.sanse.jamar@gmail.com",
+    "disableableCredentialTypes": [],
+    "requiredActions": [],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": false,
+      "view": true,
+      "mapRoles": false,
+      "impersonate": false,
+      "manage": false
+    }
+  },
+  {
+    "id": "650ded82-b199-4878-9c15-b51c5656171d",
+    "createdTimestamp": 1659448521648,
+    "username": "pascal.paulis",
+    "enabled": true,
+    "totp": false,
+    "emailVerified": true,
+    "firstName": "Pascal",
+    "lastName": "Paulis",
+    "email": "pascal.paulis@baywa-re.com",
+    "disableableCredentialTypes": [],
+    "requiredActions": [],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": false,
+      "view": true,
+      "mapRoles": false,
+      "impersonate": false,
+      "manage": false
+    }
+  },
+  {
+    "id": "650ded82-b199-4878-9c15-b51c5656171a",
+    "username": "thorsten.schmitz",
+    "enabled": true,
+    "totp": false,
+    "emailVerified": true,
+    "firstName": "Thorsten",
+    "lastName": "Schmitz",
+    "email": "thorsten.schmitz@baywa-re.com",
+    "disableableCredentialTypes": [],
+    "requiredActions": [],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": false,
+      "view": true,
+      "mapRoles": false,
+      "impersonate": false,
+      "manage": false
+    }
+  }
+]

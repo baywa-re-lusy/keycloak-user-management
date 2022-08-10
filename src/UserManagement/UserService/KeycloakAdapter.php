@@ -68,9 +68,21 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
         $users    = [];
 
         foreach ($response as $userData) {
+            var_dump('test1');
+
             if (!array_key_exists('email', $userData)) {
                 continue;
             }
+            var_dump('test1a');
+
+            if (!array_key_exists('createdTimestamp', $userData) ||
+                !is_int($userData['createdTimestamp']) ||
+                !$created = \DateTime::createFromFormat('U', (string)round($userData['createdTimestamp'] / 1000))
+            ) {
+                continue;
+            }
+
+            var_dump('test1b');
 
             $user = new UserEntity();
             $user
@@ -80,12 +92,14 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
                 ->setEmailVerified($userData['emailVerified'])
                 ->setEmail($userData['email'])
                 ->setName($userData['email'])
-                ->setCreated(\DateTime::createFromFormat('U', round($userData['createdTimestamp']/1000)));
+                ->setCreated($created);
 //                ->setPicture($auth0User['picture'])
 //                ->setLastUpdate($lastUpdate ?: null)
 //                ->setLastLogin($lastLogin ?: null);
 
             $this->getUserRoles($user);
+
+            var_dump('test3');
 
             $users[] = $user;
         }
@@ -112,11 +126,17 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
         ];
 
         try {
+            var_dump('test2');
             $response = $this->httpClient->get(
-                sprintf("/admin/realms/master/users/%s/role-mappings/clients/%s", $user->getId(), $this->frontendClientUuid),
+                sprintf(
+                    "/admin/realms/master/users/%s/role-mappings/clients/%s",
+                    $user->getId(),
+                    $this->frontendClientUuid
+                ),
                 $params
             );
-        } catch (ClientException|GuzzleException $e) {
+            var_dump('test2a');
+        } catch (ClientException | GuzzleException $e) {
             throw new UserManagementException("Couldn't fetch roles for user.");
         }
 
