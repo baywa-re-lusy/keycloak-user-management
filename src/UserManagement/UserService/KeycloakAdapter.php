@@ -116,7 +116,7 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
                 sprintf("/admin/realms/master/users/%s/role-mappings/clients/%s", $user->getId(), $this->frontendClientUuid),
                 $params
             );
-        } catch (ClientException $e) {
+        } catch (ClientException|GuzzleException $e) {
             throw new UserManagementException("Couldn't fetch roles for user.");
         }
 
