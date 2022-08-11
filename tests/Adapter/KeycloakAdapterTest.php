@@ -78,7 +78,7 @@ class KeycloakAdapterTest extends TestCase
      * @return void
      * @throws UserManagementException
      */
-    public function testGetAllUsers_TokenException(): void
+    public function testGetAllUsersTokenException(): void
     {
         $this->httpClientMockHandler->reset();
         $this->httpClientMockHandler->append(new ClientException(
@@ -95,7 +95,7 @@ class KeycloakAdapterTest extends TestCase
      * @return void
      * @throws UserManagementException
      */
-    public function testGetAllUsers_UserListException(): void
+    public function testGetAllUsersUserListException(): void
     {
         $this->httpClientMockHandler->reset();
         $this->httpClientMockHandler->append(
@@ -115,7 +115,7 @@ class KeycloakAdapterTest extends TestCase
      * @return void
      * @throws UserManagementException
      */
-    public function testGetAllUsers_UserRolesException(): void
+    public function testGetAllUsersUserRolesException(): void
     {
         $this->httpClientMockHandler->reset();
         $this->httpClientMockHandler->append(
