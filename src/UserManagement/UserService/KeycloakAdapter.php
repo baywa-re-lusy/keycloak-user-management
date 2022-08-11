@@ -5,7 +5,6 @@ namespace BayWaReLusy\UserManagement\UserService;
 use BayWaReLusy\UserManagement\UserEntity;
 use BayWaReLusy\UserManagement\UserManagementException;
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
@@ -30,6 +29,7 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
      */
     public function getAllUsers(): array
     {
+        // Get a token from Auth Server
         $params = [
             'http_errors' => false,
             'headers'     =>
@@ -45,15 +45,21 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
                 ]
         ];
 
-        $response = $this->httpClient->post($this->tokenEndpoint, $params);
+        try {
+            $response = $this->httpClient->post($this->tokenEndpoint, $params);
+        } catch (GuzzleException $e) {
+            throw new UserManagementException("Couldn't get a Token from Authentication Server.");
+        }
+
         $response = json_decode($response->getBody()->getContents(), true);
 
         if (!is_array($response) || !array_key_exists('access_token', $response)) {
-            throw new UserManagementException("Couldn't get a Token from Authentication Server.");
+            throw new UserManagementException("Invalid response from Authentication Server.");
         }
 
         $this->accessToken = $response['access_token'];
 
+        // Get the list of users from Auth Server
         $params = [
             'http_errors' => false,
             'headers'     =>
@@ -63,26 +69,34 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
                 ],
         ];
 
-        $response = $this->httpClient->get($this->usersEndpoint, $params);
+        try {
+            $response = $this->httpClient->get($this->usersEndpoint, $params);
+        } catch (GuzzleException $e) {
+            throw new UserManagementException("Couldn't get the list of users from Authentication Server.");
+        }
+
         $response = json_decode($response->getBody()->getContents(), true);
         $users    = [];
 
         foreach ($response as $userData) {
-            var_dump('test1');
-
+            // Skip users without email address (M2M users)
             if (!array_key_exists('email', $userData)) {
                 continue;
             }
-            var_dump('test1a');
 
-            if (!array_key_exists('createdTimestamp', $userData) ||
+            // Skip users without valid creation date
+            if (
+                !array_key_exists('createdTimestamp', $userData) ||
                 !is_int($userData['createdTimestamp']) ||
                 !$created = \DateTime::createFromFormat('U', (string)round($userData['createdTimestamp'] / 1000))
             ) {
                 continue;
             }
 
-            var_dump('test1b');
+            // Skip disabled users
+            if (false === $userData['enabled']) {
+                continue;
+            }
 
             $user = new UserEntity();
             $user
@@ -98,8 +112,6 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
 //                ->setLastLogin($lastLogin ?: null);
 
             $this->getUserRoles($user);
-
-            var_dump('test3');
 
             $users[] = $user;
         }
@@ -126,7 +138,6 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
         ];
 
         try {
-            var_dump('test2');
             $response = $this->httpClient->get(
                 sprintf(
                     "/admin/realms/master/users/%s/role-mappings/clients/%s",
@@ -135,8 +146,7 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
                 ),
                 $params
             );
-            var_dump('test2a');
-        } catch (ClientException | GuzzleException $e) {
+        } catch (GuzzleException $e) {
             throw new UserManagementException("Couldn't fetch roles for user.");
         }
 
