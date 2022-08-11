@@ -21,6 +21,7 @@ class UserService
     /**
      * Get the list of users.
      * @return UserEntity[]
+     * @throws UserManagementException
      */
     public function getAllUsers(): array
     {

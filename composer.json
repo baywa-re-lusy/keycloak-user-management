@@ -21,5 +21,10 @@
         "psr-4": {
             "BayWaReLusy\\UserManagement\\": "src/UserManagement"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BayWaReLusy\\UserManagement\\Test\\": "tests"
+        }
     }
 }

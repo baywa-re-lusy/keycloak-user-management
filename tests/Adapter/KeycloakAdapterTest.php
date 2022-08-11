@@ -1,6 +1,6 @@
 <?php
 
-namespace tms\Test\Unit;
+namespace BayWaReLusy\UserManagement\Test\Adapter;
 
 use BayWaReLusy\UserManagement\UserEntity;
 use BayWaReLusy\UserManagement\UserManagementException;
