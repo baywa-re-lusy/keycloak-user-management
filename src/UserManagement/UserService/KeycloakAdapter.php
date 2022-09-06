@@ -120,6 +120,28 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function logout(UserEntity $user): void
+    {
+        // Get the list of users from Auth Server
+        $params = [
+            'http_errors' => false,
+            'headers'     =>
+                [
+                    'Authorization' => sprintf("Bearer %s", $this->accessToken),
+                    'Accept'        => 'application/json',
+                ],
+        ];
+
+        try {
+            $response = $this->httpClient->post(sprintf("/master/users/%s/logout", $user->getId()), $params);
+        } catch (GuzzleException $e) {
+            throw new UserManagementException("Couldn't get the list of users from Authentication Server.");
+        }
+    }
+
+    /**
      * Retrieve and inject the users roles.
      *
      * @param UserEntity $user

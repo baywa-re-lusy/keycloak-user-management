@@ -16,4 +16,11 @@ interface IdentityProviderAdapterInterface
      * @throws UserManagementException
      */
     public function getAllUsers(): array;
+
+    /**
+     * Logout the connected user.
+     * @param UserEntity $user
+     * @return void
+     */
+    public function logout(UserEntity $user): void;
 }
