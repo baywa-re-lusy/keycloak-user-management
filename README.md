@@ -24,6 +24,7 @@ $userManagementConfig = new UserManagementConfig(
     'https://auth-server-address',
     '/token-endpoint',
     '/users-endpoint',
+    '/logout-endpoint',
     'client-credentials-client-id',
     'client-credentials-client-secret',
     'uuid-of-frontend-client'

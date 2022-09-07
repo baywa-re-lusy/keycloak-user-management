@@ -2,6 +2,7 @@
 
 namespace BayWaReLusy\UserManagement\Test;
 
+use BayWaReLusy\UserManagement\UserEntity;
 use BayWaReLusy\UserManagement\UserManagementException;
 use BayWaReLusy\UserManagement\UserService;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -50,5 +51,22 @@ class UserServiceTest extends TestCase
         $this->expectException(UserManagementException::class);
 
         $this->instance->getAllUsers();
+    }
+
+    /**
+     * Test that the adapter is correctly called.
+     * @return void
+     * @throws UserManagementException
+     */
+    public function testLogout(): void
+    {
+        $user = new UserEntity();
+
+        $this->adapterMock
+            ->expects($this->once())
+            ->method('logout')
+            ->with($user);
+
+        $this->instance->logout($user);
     }
 }

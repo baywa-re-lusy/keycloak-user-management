@@ -12,12 +12,13 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class KeycloakAdapter implements IdentityProviderAdapterInterface
 {
-    protected string $accessToken;
+    protected ?string $accessToken = null;
 
     public function __construct(
         protected HttpClient $httpClient,
         protected string $tokenEndpoint,
         protected string $usersEndpoint,
+        protected string $logoutEndpoint,
         protected string $managementApiClientId,
         protected string $managementApiClientSecret,
         protected string $frontendClientUuid
@@ -29,35 +30,7 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
      */
     public function getAllUsers(): array
     {
-        // Get a token from Auth Server
-        $params = [
-            'http_errors' => false,
-            'headers'     =>
-                [
-                    'Content-Type' => 'application/x-www-form-urlencoded',
-                    'Accept'       => 'application/json'
-                ],
-            'form_params' =>
-                [
-                    'grant_type'    => 'client_credentials',
-                    'client_id'     => $this->managementApiClientId,
-                    'client_secret' => $this->managementApiClientSecret,
-                ]
-        ];
-
-        try {
-            $response = $this->httpClient->post($this->tokenEndpoint, $params);
-        } catch (GuzzleException $e) {
-            throw new UserManagementException("Couldn't get a Token from Authentication Server.");
-        }
-
-        $response = json_decode($response->getBody()->getContents(), true);
-
-        if (!is_array($response) || !array_key_exists('access_token', $response)) {
-            throw new UserManagementException("Invalid response from Authentication Server.");
-        }
-
-        $this->accessToken = $response['access_token'];
+        $this->loginToAuthServer();
 
         // Get the list of users from Auth Server
         $params = [
@@ -117,6 +90,67 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
         }
 
         return $users;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function logout(UserEntity $user): void
+    {
+        $this->loginToAuthServer();
+
+        // Get the list of users from Auth Server
+        $params = [
+            'http_errors' => false,
+            'headers'     =>
+                [
+                    'Authorization' => sprintf("Bearer %s", $this->accessToken),
+                    'Accept'        => 'application/json',
+                ],
+        ];
+
+        try {
+            $this->httpClient->post(sprintf($this->logoutEndpoint, $user->getId()), $params);
+        } catch (GuzzleException) {
+            throw new UserManagementException("Couldn't log out the user.");
+        }
+    }
+
+    protected function loginToAuthServer(): void
+    {
+        if (!is_null($this->accessToken)) {
+            return;
+        }
+
+        // Get a token from Auth Server
+        $params = [
+            'http_errors' => false,
+            'headers'     =>
+                [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'Accept'       => 'application/json'
+                ],
+            'form_params' =>
+                [
+                    'grant_type'    => 'client_credentials',
+                    'client_id'     => $this->managementApiClientId,
+                    'client_secret' => $this->managementApiClientSecret,
+                ]
+        ];
+
+        try {
+            $response = $this->httpClient->post($this->tokenEndpoint, $params);
+        } catch (GuzzleException $e) {
+            throw new UserManagementException("Couldn't get a Token from Authentication Server.");
+        }
+
+        $response = json_decode($response->getBody()->getContents(), true);
+
+        if (!is_array($response) || !array_key_exists('access_token', $response)) {
+            throw new UserManagementException("Invalid response from Authentication Server.");
+        }
+
+        $this->accessToken = $response['access_token'];
     }
 
     /**
