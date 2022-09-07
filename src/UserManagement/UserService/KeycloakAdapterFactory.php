@@ -21,6 +21,7 @@ class KeycloakAdapterFactory implements FactoryInterface
             new HttpClient(['base_uri' => $config->getServerAddress()]),
             $config->getTokenEndpoint(),
             $config->getUsersEndpoint(),
+            $config->getLogoutEndpoint(),
             $config->getManagementApiClientId(),
             $config->getManagementApiClientSecret(),
             $config->getFrontendClientUuid()

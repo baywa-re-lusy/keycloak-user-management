@@ -27,6 +27,7 @@ class KeycloakAdapterTest extends TestCase
             new HttpClient(['handler' => $handlerStack]),
             '/token-endpoint',
             '/users-endpoint',
+            '/logout-endpoint',
             'management-api-client-id',
             'management-api-client-secret',
             'frontend-client-uuid'

@@ -18,6 +18,7 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
         protected HttpClient $httpClient,
         protected string $tokenEndpoint,
         protected string $usersEndpoint,
+        protected string $logoutEndpoint,
         protected string $managementApiClientId,
         protected string $managementApiClientSecret,
         protected string $frontendClientUuid
@@ -109,8 +110,8 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
         ];
 
         try {
-            $this->httpClient->post(sprintf("/admin/realms/master/users/%s/logout", $user->getId()), $params);
-        } catch (GuzzleException $e) {
+            $this->httpClient->post(sprintf($this->logoutEndpoint, $user->getId()), $params);
+        } catch (GuzzleException) {
             throw new UserManagementException("Couldn't log out the user.");
         }
     }
