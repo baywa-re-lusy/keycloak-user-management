@@ -8,6 +8,7 @@ class UserManagementConfig
         protected string $serverAddress,
         protected string $tokenEndpoint,
         protected string $usersEndpoint,
+        protected string $logoutEndpoint,
         protected string $managementApiClientId,
         protected string $managementApiClientSecret,
         protected string $frontendClientUuid
@@ -36,6 +37,14 @@ class UserManagementConfig
     public function getUsersEndpoint(): string
     {
         return $this->usersEndpoint;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoutEndpoint(): string
+    {
+        return $this->logoutEndpoint;
     }
 
     /**
