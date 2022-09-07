@@ -64,8 +64,8 @@ class UserServiceTest extends TestCase
 
         $this->adapterMock
             ->expects($this->once())
-            ->with($user)
-            ->method('logout');
+            ->method('logout')
+            ->with($user);
 
         $this->instance->logout($user);
     }
