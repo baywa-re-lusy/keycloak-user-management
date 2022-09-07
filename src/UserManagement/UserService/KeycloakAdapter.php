@@ -109,7 +109,7 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
         ];
 
         try {
-            $response = $this->httpClient->post(sprintf("/admin/realms/master/users/%s/logout", $user->getId()), $params);
+            $this->httpClient->post(sprintf("/admin/realms/master/users/%s/logout", $user->getId()), $params);
         } catch (GuzzleException $e) {
             throw new UserManagementException("Couldn't log out the user.");
         }
