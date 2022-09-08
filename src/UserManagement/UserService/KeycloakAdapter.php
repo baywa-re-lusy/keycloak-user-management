@@ -99,7 +99,7 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
     {
         $this->loginToAuthServer();
 
-        // Get the list of users from Auth Server
+        // Log out the user
         $params = [
             'http_errors' => false,
             'headers'     =>
@@ -116,6 +116,11 @@ class KeycloakAdapter implements IdentityProviderAdapterInterface
         }
     }
 
+    /**
+     * Retrieve an access token from Keycloak
+     * @return void
+     * @throws UserManagementException
+     */
     protected function loginToAuthServer(): void
     {
         if (!is_null($this->accessToken)) {
