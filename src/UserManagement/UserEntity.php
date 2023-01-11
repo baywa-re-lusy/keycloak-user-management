@@ -6,8 +6,6 @@ use BayWaReLusy\JwtAuthentication\Token;
 
 /**
  * Class UserEntity
- * @package Application\User
- *
  * @OA\Schema()
  */
 class UserEntity implements IdentityInterface
@@ -61,6 +59,8 @@ class UserEntity implements IdentityInterface
             ->setEmail($jwtToken->getEmail())
             ->setRoles($jwtToken->getRoles())
             ->setScopes($jwtToken->getScopes());
+
+        return $user;
     }
 
     public function getRoleId()
