@@ -5,16 +5,13 @@
     "license": "proprietary",
     "homepage": "https://github.com/baywa-re-lusy/user-management",
     "require": {
-        "php": ">= 8.0",
-        "ext-curl": "*",
-        "laminas/laminas-permissions-acl": "^2.9",
-        "laminas/laminas-servicemanager": "^3.12",
-        "guzzlehttp/guzzle": "^7.4",
-        "laminas/laminas-hydrator": "^4.3"
+        "php": ">= 8.1",
+        "laminas/laminas-permissions-acl": "^2.10",
+        "baywa-re-lusy/jwt-authentication": "dev-feature/missing-fields"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.6",
-        "phpstan/phpstan": "^1.6",
+        "squizlabs/php_codesniffer": "^3.7",
+        "phpstan/phpstan": "^1.9",
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {

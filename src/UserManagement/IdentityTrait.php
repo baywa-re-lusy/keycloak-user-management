@@ -5,40 +5,46 @@ namespace BayWaReLusy\UserManagement;
 trait IdentityTrait
 {
     /** @var string[] */
-    protected array $permissions = [];
+    protected array $scopes = [];
 
     /** @var string[] */
     protected array $roles = [];
 
     /**
-     * {@inheritdoc}
+     * @param string $scope
+     * @return bool
      */
-    public function hasPermission(string $permission): bool
+    public function hasScope(string $scope): bool
     {
-        return in_array($permission, $this->permissions);
+        return in_array($scope, $this->scopes);
     }
 
     /**
-     * {@inheritdoc}
+     * @return string[]
      */
-    public function getPermissions(): array
+    public function getScopes(): array
     {
-        return $this->permissions;
+        return $this->scopes;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string[] $scopes
+     * @return IdentityInterface
      */
-    public function setPermissions(array $permissions): IdentityInterface
+    public function setScopes(array $scopes): IdentityInterface
     {
-        $this->permissions = $permissions;
+        $this->scopes = $scopes;
         return $this;
     }
 
-    public function addPermission(string $permission): IdentityInterface
+    /**
+     * @param string $scope
+     * @return IdentityInterface
+     */
+    public function addScope(string $scope): IdentityInterface
     {
-        if (!in_array($permission, $this->permissions)) {
-            $this->permissions[] = $permission;
+        if (!in_array($scope, $this->scopes)) {
+            $this->scopes[] = $scope;
         }
 
         return $this;

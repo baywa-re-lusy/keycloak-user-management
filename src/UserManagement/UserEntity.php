@@ -2,6 +2,8 @@
 
 namespace BayWaReLusy\UserManagement;
 
+use BayWaReLusy\JwtAuthentication\Token;
+
 /**
  * Class UserEntity
  * @package Application\User
@@ -22,30 +24,6 @@ class UserEntity implements IdentityInterface
      * )
      */
     protected string $id;
-
-    /**
-     * @var string
-     * @deprecated
-     *
-     * @OA\Property(
-     *     description="The Username (email)",
-     *     type="string",
-     *     example="pascal.paulis@baywa-re.com"
-     * )
-     */
-    protected string $name;
-
-    /**
-     * @var string
-     * @deprecated Will be replaced by $username
-     *
-     * @OA\Property(
-     *     description="The nickname",
-     *     type="string",
-     *     example="pascal.paulis"
-     * )
-     */
-    protected string $nickname;
 
     /**
      * @var string
@@ -71,24 +49,19 @@ class UserEntity implements IdentityInterface
 
     protected bool $emailVerified;
 
-    /**
-     * @var string|null
-     * @deprecated
-     */
-    protected ?string $picture = null;
     protected ?\DateTime $created;
 
-    /**
-     * @var \DateTime|null
-     * @deprecated
-     */
-    protected ?\DateTime $lastUpdate = null;
-
-    /**
-     * @var \DateTime|null
-     * @deprecated
-     */
-    protected ?\DateTime $lastLogin = null;
+    public static function createFromJWT(Token $jwtToken): UserEntity
+    {
+        $user = new UserEntity();
+        $user
+            ->setId($jwtToken->getSub())
+            ->setUsername($jwtToken->getUsername())
+            ->setEmailVerified($jwtToken->getEmailVerified())
+            ->setEmail($jwtToken->getEmail())
+            ->setRoles($jwtToken->getRoles())
+            ->setScopes($jwtToken->getScopes());
+    }
 
     public function getRoleId()
     {
@@ -110,46 +83,6 @@ class UserEntity implements IdentityInterface
     public function setId(string $id): UserEntity
     {
         $this->id = $id;
-        return $this;
-    }
-
-    /**
-     * @return string
-     * @deprecated
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     * @return UserEntity
-     * @deprecated
-     */
-    public function setName(string $name): UserEntity
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return string
-     * @deprecated Will be replaced by getUsername()
-     */
-    public function getNickname(): string
-    {
-        return $this->nickname;
-    }
-
-    /**
-     * @param string $nickname
-     * @return UserEntity
-     * @deprecated Will be replaced by setUsername()
-     */
-    public function setNickname(string $nickname): UserEntity
-    {
-        $this->nickname = $nickname;
         return $this;
     }
 
@@ -208,26 +141,6 @@ class UserEntity implements IdentityInterface
     }
 
     /**
-     * @return string|null
-     * @deprecated
-     */
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    /**
-     * @param string|null $picture
-     * @return UserEntity
-     * @deprecated
-     */
-    public function setPicture(?string $picture): UserEntity
-    {
-        $this->picture = $picture;
-        return $this;
-    }
-
-    /**
      * @return \DateTime|null
      */
     public function getCreated(): ?\DateTime
@@ -242,46 +155,6 @@ class UserEntity implements IdentityInterface
     public function setCreated(?\DateTime $created): UserEntity
     {
         $this->created = $created;
-        return $this;
-    }
-
-    /**
-     * @return \DateTime|null
-     * @deprecated
-     */
-    public function getLastUpdate(): ?\DateTime
-    {
-        return $this->lastUpdate;
-    }
-
-    /**
-     * @param \DateTime|null $lastUpdate
-     * @return UserEntity
-     * @deprecated
-     */
-    public function setLastUpdate(?\DateTime $lastUpdate): UserEntity
-    {
-        $this->lastUpdate = $lastUpdate;
-        return $this;
-    }
-
-    /**
-     * @return \DateTime|null
-     * @deprecated
-     */
-    public function getLastLogin(): ?\DateTime
-    {
-        return $this->lastLogin;
-    }
-
-    /**
-     * @param \DateTime|null $lastLogin
-     * @return UserEntity
-     * @deprecated
-     */
-    public function setLastLogin(?\DateTime $lastLogin): UserEntity
-    {
-        $this->lastLogin = $lastLogin;
         return $this;
     }
 }
