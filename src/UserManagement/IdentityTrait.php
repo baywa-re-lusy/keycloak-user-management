@@ -2,13 +2,7 @@
 
 namespace BayWaReLusy\UserManagement;
 
-use BayWaReLusy\JwtAuthentication\Token;
-
-/**
- * Class Identity
- * @OA\Schema()
- */
-class Identity extends UserEntity
+trait IdentityTrait
 {
     /** @var string[] */
     protected array $scopes = [];
@@ -80,19 +74,5 @@ class Identity extends UserEntity
         }
 
         return $this;
-    }
-
-    public static function createFromJWT(Token $jwtToken): Identity
-    {
-        $identity = new Identity();
-        $identity
-            ->setId($jwtToken->getSub())
-            ->setUsername($jwtToken->getUsername())
-            ->setEmailVerified($jwtToken->getEmailVerified())
-            ->setEmail($jwtToken->getEmail())
-            ->setRoles($jwtToken->getRoles())
-            ->setScopes($jwtToken->getScopes());
-
-        return $identity;
     }
 }
