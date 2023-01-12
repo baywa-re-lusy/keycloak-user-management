@@ -45,6 +45,9 @@ class UserEntity
 
     protected ?\DateTime $created;
 
+    /** @var string[] */
+    protected array $roles = [];
+
     public function getRoleId()
     {
         return 'user_' . $this->getId();
@@ -137,6 +140,37 @@ class UserEntity
     public function setCreated(?\DateTime $created): UserEntity
     {
         $this->created = $created;
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param string[] $roles
+     * @return UserEntity
+     */
+    public function setRoles(array $roles): UserEntity
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    /**
+     * @param string $role
+     * @return UserEntity
+     */
+    public function addRole(string $role): UserEntity
+    {
+        if (!in_array($role, $this->roles)) {
+            $this->roles[] = $role;
+        }
+
         return $this;
     }
 }

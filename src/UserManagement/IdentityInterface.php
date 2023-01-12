@@ -32,24 +32,4 @@ interface IdentityInterface extends RoleInterface
      * @return IdentityInterface
      */
     public function setScopes(array $scopes): IdentityInterface;
-
-    /**
-     * Add a role to the user.
-     * @param string $role
-     * @return IdentityInterface
-     */
-    public function addRole(string $role): IdentityInterface;
-
-    /**
-     * Get the list of Roles.
-     * @return string[]
-     */
-    public function getRoles(): array;
-
-    /**
-     * Set the list of roles.
-     * @param string[] $roles
-     * @return IdentityInterface
-     */
-    public function setRoles(array $roles): IdentityInterface;
 }

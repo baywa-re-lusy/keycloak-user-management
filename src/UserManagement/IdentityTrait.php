@@ -7,9 +7,6 @@ trait IdentityTrait
     /** @var string[] */
     protected array $scopes = [];
 
-    /** @var string[] */
-    protected array $roles = [];
-
     /**
      * @param string $scope
      * @return bool
@@ -45,32 +42,6 @@ trait IdentityTrait
     {
         if (!in_array($scope, $this->scopes)) {
             $this->scopes[] = $scope;
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRoles(): array
-    {
-        return $this->roles;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setRoles(array $roles): IdentityInterface
-    {
-        $this->roles = $roles;
-        return $this;
-    }
-
-    public function addRole(string $role): IdentityInterface
-    {
-        if (!in_array($role, $this->roles)) {
-            $this->roles[] = $role;
         }
 
         return $this;
