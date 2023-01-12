@@ -8,10 +8,8 @@ use BayWaReLusy\JwtAuthentication\Token;
  * Class UserEntity
  * @OA\Schema()
  */
-class UserEntity implements IdentityInterface
+class UserEntity
 {
-    use IdentityTrait;
-
     /**
      * @var string
      *
