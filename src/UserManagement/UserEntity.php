@@ -2,8 +2,6 @@
 
 namespace BayWaReLusy\UserManagement;
 
-use BayWaReLusy\JwtAuthentication\Token;
-
 /**
  * Class UserEntity
  * @OA\Schema()
@@ -46,20 +44,6 @@ class UserEntity
     protected bool $emailVerified;
 
     protected ?\DateTime $created;
-
-    public static function createFromJWT(Token $jwtToken): UserEntity
-    {
-        $user = new UserEntity();
-        $user
-            ->setId($jwtToken->getSub())
-            ->setUsername($jwtToken->getUsername())
-            ->setEmailVerified($jwtToken->getEmailVerified())
-            ->setEmail($jwtToken->getEmail())
-            ->setRoles($jwtToken->getRoles())
-            ->setScopes($jwtToken->getScopes());
-
-        return $user;
-    }
 
     public function getRoleId()
     {
