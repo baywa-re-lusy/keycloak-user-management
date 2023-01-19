@@ -2,7 +2,7 @@
 
 namespace BayWaReLusy\UserManagement;
 
-class MachineUserEntity implements IdentityInterface
+class MachineUserIdentity implements IdentityInterface
 {
     use IdentityTrait;
 
@@ -28,9 +28,9 @@ class MachineUserEntity implements IdentityInterface
 
     /**
      * @param string $applicationId
-     * @return MachineUserEntity
+     * @return MachineUserIdentity
      */
-    public function setApplicationId(string $applicationId): MachineUserEntity
+    public function setApplicationId(string $applicationId): MachineUserIdentity
     {
         $this->applicationId = $applicationId;
         return $this;

@@ -5,66 +5,43 @@ namespace BayWaReLusy\UserManagement;
 trait IdentityTrait
 {
     /** @var string[] */
-    protected array $permissions = [];
-
-    /** @var string[] */
-    protected array $roles = [];
+    protected array $scopes = [];
 
     /**
-     * {@inheritdoc}
+     * @param string $scope
+     * @return bool
      */
-    public function hasPermission(string $permission): bool
+    public function hasScope(string $scope): bool
     {
-        return in_array($permission, $this->permissions);
+        return in_array($scope, $this->scopes);
     }
 
     /**
-     * {@inheritdoc}
+     * @return string[]
      */
-    public function getPermissions(): array
+    public function getScopes(): array
     {
-        return $this->permissions;
+        return $this->scopes;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string[] $scopes
+     * @return IdentityInterface
      */
-    public function setPermissions(array $permissions): IdentityInterface
+    public function setScopes(array $scopes): IdentityInterface
     {
-        $this->permissions = $permissions;
-        return $this;
-    }
-
-    public function addPermission(string $permission): IdentityInterface
-    {
-        if (!in_array($permission, $this->permissions)) {
-            $this->permissions[] = $permission;
-        }
-
+        $this->scopes = $scopes;
         return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $scope
+     * @return IdentityInterface
      */
-    public function getRoles(): array
+    public function addScope(string $scope): IdentityInterface
     {
-        return $this->roles;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setRoles(array $roles): IdentityInterface
-    {
-        $this->roles = $roles;
-        return $this;
-    }
-
-    public function addRole(string $role): IdentityInterface
-    {
-        if (!in_array($role, $this->roles)) {
-            $this->roles[] = $role;
+        if (!in_array($scope, $this->scopes)) {
+            $this->scopes[] = $scope;
         }
 
         return $this;
