@@ -20,8 +20,9 @@ class UserIdentity extends UserEntity implements IdentityInterface
             ->setUsername($jwtToken->getUsername())
             ->setEmailVerified($jwtToken->getEmailVerified())
             ->setEmail($jwtToken->getEmail())
-            ->setRoles($jwtToken->getRoles())
-            ->setScopes($jwtToken->getScopes());
+            ->setRoles($jwtToken->getRoles());
+
+        $identity->setScopes($jwtToken->getScopes());
 
         return $identity;
     }

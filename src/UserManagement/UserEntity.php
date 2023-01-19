@@ -48,7 +48,10 @@ class UserEntity
     /** @var string[] */
     protected array $roles = [];
 
-    public function getRoleId()
+    /**
+     * @return string
+     */
+    public function getRoleId(): string
     {
         return 'user_' . $this->getId();
     }
