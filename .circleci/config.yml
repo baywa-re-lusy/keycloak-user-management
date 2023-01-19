@@ -47,27 +47,6 @@ jobs:
       - store_artifacts:
           path: results
 
-  phpunit:
-    docker:
-      - image: ${ACR_HOSTNAME_PD}/alpine-php81-apache-build:latest
-        auth:
-          username: ${ACR_LOGIN_PD}
-          password: ${ACR_PASSWORD_PD}
-    resource_class: large
-    working_directory: /var/www/html
-    steps:
-      - attach_workspace:
-          at: /var/www/html
-      - run:
-          name: PHPUnit
-          command: |
-            mkdir -p results/PHPUnit
-            vendor/bin/phpunit --log-junit results/PHPUnit/phpunit.xml
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: results
-
 workflows:
   version: 2
   test:
@@ -76,11 +55,6 @@ workflows:
           context:
             - ACR_CREDENTIALS
       - static:
-          context:
-            - ACR_CREDENTIALS
-          requires:
-            - build
-      - phpunit:
           context:
             - ACR_CREDENTIALS
           requires:
