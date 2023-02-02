@@ -12,6 +12,18 @@ class UserIdentity extends UserEntity implements IdentityInterface
 {
     use IdentityTrait;
 
+    /**
+     * @return string
+     */
+    public function getRoleId(): string
+    {
+        return 'user_' . $this->getId();
+    }
+
+    /**
+     * @param Token $jwtToken
+     * @return UserIdentity
+     */
     public static function createFromJWT(Token $jwtToken): UserIdentity
     {
         $identity = new UserIdentity();
