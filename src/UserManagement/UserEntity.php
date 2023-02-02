@@ -51,14 +51,6 @@ class UserEntity
     /**
      * @return string
      */
-    public function getRoleId(): string
-    {
-        return 'user_' . $this->getId();
-    }
-
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
