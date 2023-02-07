@@ -2,9 +2,7 @@
 
 namespace BayWaReLusy\UserManagement;
 
-use Laminas\Permissions\Acl\Resource\ResourceInterface;
-
-interface SubsidiaryInterface extends ResourceInterface
+interface SubsidiaryInterface
 {
     /**
      * @return string
