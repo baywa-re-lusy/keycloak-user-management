@@ -5,9 +5,7 @@
     "license": "proprietary",
     "homepage": "https://github.com/baywa-re-lusy/user-management",
     "require": {
-        "php": ">= 8.1",
-        "laminas/laminas-permissions-acl": "^2.10",
-        "baywa-re-lusy/jwt-authentication": "^2.0"
+        "php": ">= 8.1"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7",
@@ -16,11 +14,6 @@
     "autoload": {
         "psr-4": {
             "BayWaReLusy\\UserManagement\\": "src/UserManagement"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "BayWaReLusy\\UserManagement\\Test\\": "tests"
         }
     }
 }
