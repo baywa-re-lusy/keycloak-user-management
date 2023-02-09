@@ -22,9 +22,9 @@ interface UserInterface
 
     /**
      * @param string $username
-     * @return UserEntity
+     * @return UserInterface
      */
-    public function setUsername(string $username): UserEntity;
+    public function setUsername(string $username): UserInterface;
 
     /**
      * @return string
@@ -33,9 +33,9 @@ interface UserInterface
 
     /**
      * @param string $email
-     * @return UserEntity
+     * @return UserInterface
      */
-    public function setEmail(string $email): UserEntity;
+    public function setEmail(string $email): UserInterface;
 
     /**
      * @return bool
@@ -44,9 +44,9 @@ interface UserInterface
 
     /**
      * @param bool $emailVerified
-     * @return UserEntity
+     * @return UserInterface
      */
-    public function setEmailVerified(bool $emailVerified): UserEntity;
+    public function setEmailVerified(bool $emailVerified): UserInterface;
 
     /**
      * @return \DateTime|null
@@ -55,9 +55,9 @@ interface UserInterface
 
     /**
      * @param \DateTime|null $created
-     * @return UserEntity
+     * @return UserInterface
      */
-    public function setCreated(?\DateTime $created): UserEntity;
+    public function setCreated(?\DateTime $created): UserInterface;
 
     /**
      * @return string[]
@@ -66,13 +66,13 @@ interface UserInterface
 
     /**
      * @param string[] $roles
-     * @return UserEntity
+     * @return UserInterface
      */
-    public function setRoles(array $roles): UserEntity;
+    public function setRoles(array $roles): UserInterface;
 
     /**
      * @param string $role
-     * @return UserEntity
+     * @return UserInterface
      */
-    public function addRole(string $role): UserEntity;
+    public function addRole(string $role): UserInterface;
 }
